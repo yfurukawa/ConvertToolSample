@@ -1,9 +1,41 @@
+/*!-----------------------------------------------------------------------------
+@file       BinaryFileDao.h
+@brief		バイナリファイルへのアクセスを提供する
+@attention  なし
+------------------------------------------------------------------------------*/
 #pragma once
-#include "IFileDao.h"
-class BinaryFileDao : public IFileDao
+// インクルードファイル ======================================================
+
+// クラスの前方宣言 =======================================================
+
+// マクロの宣言 ================================================================
+
+// 型の宣言 ==================================================================
+
+
+// クラス定義 ==================================================================
+/*!-----------------------------------------------------------------------------
+@class      BinaryFileDaoクラス
+@brief      バイナリファイルへのアクセスを提供する
+@note       なし
+@attention  なし
+@see        なし
+------------------------------------------------------------------------------*/
+class BinaryFileDao
 {
 public:
-	BinaryFileDao();
-	virtual ~BinaryFileDao();
+    BinaryFileDao(void);
+    ~BinaryFileDao(void);
+	bool open(LPCTSTR fileName);
+    void close();
+    bool readData(void* readBuffer, int readSize);
+    ULONGLONG getPosition();
+    ULONGLONG getFileSize();
+
+private:
+    CFile tmbFile_;  //!< 対象とするバイナリファイルのファイルハンドラ
+    CFileException fileException_;  //!< ファイルアクセスの際に発生した例外
+    char synchWord_[4];  //!< DDRデータの開始を表すシンクワード　TODO FileDaoがシンクワードを知っているのはおかしいので要リファクタリング
+
 };
 

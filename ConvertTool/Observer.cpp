@@ -1,12 +1,17 @@
-#include "stdafx.h"
+/*!-----------------------------------------------------------------------------
+@file       Observer.h
+@brief      ObserverパターンのObserverクラス
+@attention  なし
+------------------------------------------------------------------------------*/
+#include "StdAfx.h"
 #include "Observer.h"
 
 
-Observer::Observer()
+Observer::Observer(void)
 {
 }
 
 
-Observer::~Observer()
+Observer::~Observer(void)
 {
 }
