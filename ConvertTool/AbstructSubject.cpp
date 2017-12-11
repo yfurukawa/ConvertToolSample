@@ -21,3 +21,8 @@ void AbstructSubject::subscribe(Observer* observer)
 {
     observers_.push_back(observer);
 }
+
+void AbstructSubject::unsubscribe(Observer* observer)
+{
+    observers_.remove(observer);
+}

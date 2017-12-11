@@ -23,6 +23,7 @@ public:
     AbstructSubject(void);
     virtual ~AbstructSubject(void);
     void subscribe(Observer* observer);
+    void unsubscribe(Observer* observer);
     virtual CString getData() = 0;
 
 protected:
