@@ -15,9 +15,9 @@
 @attention  なし
 ------------------------------------------------------------------------------*/
 InitializeDataHolder::InitializeDataHolder() :
-synchWord_(_T("DEADBEEF")), revision_(_T("01")), outputDir_(_T("c:\\")), iniFileDao_(NULL), statusWordCheck_(_T(""))
+key1_(_T("")), key2_(_T("")), outputDir_(_T("c:\\")), iniFileDao_(NULL)
 {
-    iniFileDao_ = new IniFileDao(_T("DDRDataConverter.ini"));
+    iniFileDao_ = new IniFileDao(_T("ConverterTool.ini"));
     this->readIniFile();
 }
 
@@ -47,27 +47,27 @@ InitializeDataHolder* InitializeDataHolder::getInstance()
 }
 
 /*!-----------------------------------------------------------------------------
-@brief      SynchWord取得
-@note       SynchWordを取得する
+@brief      Key1の値取得
+@note       Key1の値を取得する
 @param      なし
-@return     SynchWord
+@return     
 @attention  なし
 ------------------------------------------------------------------------------*/
-CString InitializeDataHolder::getSynchWord()
+CString InitializeDataHolder::getKey1()
 {
-    return synchWord_;
+    return key1_;
 }
 
 /*!-----------------------------------------------------------------------------
-@brief      InitializeDataHolder改訂
-@note       InitializeDataHolderを改訂する
+@brief      Key2の値取得
+@note       Key2の値を取得する
 @param      なし
-@return     なし
+@return     
 @attention  なし
 ------------------------------------------------------------------------------*/
-CString InitializeDataHolder::getRevision()
+CString InitializeDataHolder::getKey2()
 {
-    return revision_;
+    return key2_;
 }
 
 /*!-----------------------------------------------------------------------------
@@ -81,10 +81,9 @@ CString InitializeDataHolder::getRevision()
 void InitializeDataHolder::readIniFile()
 {
     iniFileDao_->selectSection(_T("common"));
-    synchWord_ = iniFileDao_->readValue(_T("SynchWord"));
-    revision_ = iniFileDao_->readValue(_T("Revision"));
+    key1_ = iniFileDao_->readValue(_T("Key1"));
+    key2_ = iniFileDao_->readValue(_T("Key2"));
     outputDir_ = iniFileDao_->readValue(_T("OutputDirectory"));
-    statusWordCheck_ = iniFileDao_->readValue(_T("StatusWordCheck"));
 }
 
 CString InitializeDataHolder::getOutputDir()
@@ -95,9 +94,4 @@ CString InitializeDataHolder::getOutputDir()
 void InitializeDataHolder::writeOutputDir(CString outputDir)
 {
     iniFileDao_->writeValue(_T("OutputDirectory"), outputDir);
-}
-
-CString InitializeDataHolder::getStatusWordCheck()
-{
-    return statusWordCheck_;
 }
