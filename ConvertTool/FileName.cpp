@@ -10,3 +10,8 @@ FileName::FileName()
 FileName::~FileName()
 {
 }
+
+CString FileName::fileNameWithPath()
+{
+	return fileName_;
+}
