@@ -5,7 +5,6 @@
 ------------------------------------------------------------------------------*/
 #pragma once
 // インクルードファイル ======================================================
-#include "DDRDataConverterDlg.h"
 
 // クラスの前方宣言 =======================================================
 class AbstructSubject;
@@ -31,11 +30,10 @@ public:
     LogDisplayObserver(void);
     virtual ~LogDisplayObserver(void);
     virtual void notify(AbstructSubject* subject);
-    void setMainDialog(CDDRDataConverterDlg* dialog);
     void subscribe(AbstructSubject* subject);
     void unsubscribe(AbstructSubject* subject);
 
 private:
-    CDDRDataConverterDlg* dialog_;
+    
 };
 
