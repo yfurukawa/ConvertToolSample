@@ -5,6 +5,7 @@
 ------------------------------------------------------------------------------*/
 #include "StdAfx.h"
 #include "BinaryFileDao.h"
+#include "FileName.h"
 
 /*!-----------------------------------------------------------------------------
 @brief      デフォルトコンストラクタ
@@ -38,9 +39,9 @@ BinaryFileDao::~BinaryFileDao(void)
 　　　　　　指定されたファイルが存在しない場合、例外が発生しますが、
       　　　処理は継続されます
 ------------------------------------------------------------------------------*/
-bool BinaryFileDao::open(LPCTSTR fileName)
+bool BinaryFileDao::open(FileName* fileName)
 {
-    if(!tmbFile_.Open(fileName, 
+    if(!tmbFile_.Open(fileName->fileNameWithPath(),
         CFile::modeRead /*| CFile::shareExclusive*/ | CFile::typeBinary, &fileException_))
     {
         TRACE( _T("Can't open file %s, error = %u\n"),
@@ -83,14 +84,7 @@ bool BinaryFileDao::readData(void* readBuffer, int readSize)
 ------------------------------------------------------------------------------*/
 void BinaryFileDao::close()
 {
-    if( tmbFile_.m_hFile != CFile::hFileNull)
-    {
-        tmbFile_.Close();
-    }
-    else
-    {
-        // Nothing to do.
-    }
+    if( tmbFile_.m_hFile != CFile::hFileNull) tmbFile_.Close();
 }
 
 /*!-----------------------------------------------------------------------------

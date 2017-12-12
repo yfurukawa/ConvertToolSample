@@ -5,6 +5,7 @@
 ------------------------------------------------------------------------------*/
 #pragma once
 // インクルードファイル ======================================================
+#include "IFileDao.h"
 
 // クラスの前方宣言 =======================================================
 
@@ -21,12 +22,12 @@
 @attention  なし
 @see        なし
 ------------------------------------------------------------------------------*/
-class BinaryFileDao
+class BinaryFileDao : public IFileDao
 {
 public:
     BinaryFileDao(void);
     ~BinaryFileDao(void);
-	bool open(LPCTSTR fileName);
+	virtual bool open(FileName* fileName);
     void close();
     bool readData(void* readBuffer, int readSize);
     ULONGLONG getPosition();
