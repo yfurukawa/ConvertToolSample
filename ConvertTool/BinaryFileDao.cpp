@@ -55,6 +55,30 @@ bool BinaryFileDao::openReadOnly(FileName* fileName)
 }
 
 /*!-----------------------------------------------------------------------------
+@fn         指定されたファイルをバイナリ形式でオープンする
+@brief      ファイルオープン
+@param[in]  fileName　ファイル名
+@return     オープン結果（成功：true、失敗：false）
+@attention  なし
+@detail     引数で渡されたファイルをバイナリ形式でオープンします。
+　　　　　　指定されたファイルが存在しない場合、新規にファイルが作成されます
+------------------------------------------------------------------------------*/
+bool BinaryFileDao::openReadWrite(FileName* fileName)
+{
+    if(!binFile_.Open(fileName->fileNameWithPath(),
+        CFile::modeReadWrite | CFile::modeCreate | CFile::modeNoTruncate | CFile::typeBinary ))
+    {
+        TRACE( _T("Can't open file %s, error = %u\n"),
+            fileName, fileException_.m_cause );
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+/*!-----------------------------------------------------------------------------
 @fn         オープン済みのファイルから、データを読み込む
 @brief      データ読み込み
 @note       指定ファイルのバッファー読込、範囲判定
@@ -84,7 +108,7 @@ bool BinaryFileDao::readData(void* readBuffer, int readSize)
 ------------------------------------------------------------------------------*/
 void BinaryFileDao::close()
 {
-    if( binFile_.m_hFile != CFile::hFileNull) tmbFile_.Close();
+    if( binFile_.m_hFile != CFile::hFileNull) binFile_.Close();
 }
 
 /*!-----------------------------------------------------------------------------

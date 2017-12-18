@@ -28,6 +28,7 @@ public:
     BinaryFileDao(void);
     ~BinaryFileDao(void);
 	virtual bool openReadOnly(FileName* fileName);
+	virtual bool openReadWrite(FileName* fileName);
     void close();
     bool readData(void* readBuffer, int readSize);
     ULONGLONG getPosition();
