@@ -27,14 +27,14 @@ class BinaryFileDao : public IFileDao
 public:
     BinaryFileDao(void);
     ~BinaryFileDao(void);
-	virtual bool open(FileName* fileName);
+	virtual bool openReadOnly(FileName* fileName);
     void close();
     bool readData(void* readBuffer, int readSize);
     ULONGLONG getPosition();
     ULONGLONG getFileSize();
 
 private:
-    CFile tmbFile_;  //!< 対象とするバイナリファイルのファイルハンドラ
+    CFile binFile_;  //!< 対象とするバイナリファイルのファイルハンドラ
     CFileException fileException_;  //!< ファイルアクセスの際に発生した例外
     char synchWord_[4];  //!< DDRデータの開始を表すシンクワード　TODO FileDaoがシンクワードを知っているのはおかしいので要リファクタリング
 

@@ -39,10 +39,10 @@ BinaryFileDao::~BinaryFileDao(void)
 　　　　　　指定されたファイルが存在しない場合、例外が発生しますが、
       　　　処理は継続されます
 ------------------------------------------------------------------------------*/
-bool BinaryFileDao::open(FileName* fileName)
+bool BinaryFileDao::openReadOnly(FileName* fileName)
 {
-    if(!tmbFile_.Open(fileName->fileNameWithPath(),
-        CFile::modeRead /*| CFile::shareExclusive*/ | CFile::typeBinary, &fileException_))
+    if(!binFile_.Open(fileName->fileNameWithPath(),
+        CFile::modeRead | CFile::typeBinary, &fileException_))
     {
         TRACE( _T("Can't open file %s, error = %u\n"),
             fileName, fileException_.m_cause );
@@ -65,7 +65,7 @@ bool BinaryFileDao::open(FileName* fileName)
 ------------------------------------------------------------------------------*/
 bool BinaryFileDao::readData(void* readBuffer, int readSize)
 {
-    if( tmbFile_.Read(readBuffer, readSize) == readSize ){
+    if( binFile_.Read(readBuffer, readSize) == readSize ){
         return true;
     }
     else
@@ -84,7 +84,7 @@ bool BinaryFileDao::readData(void* readBuffer, int readSize)
 ------------------------------------------------------------------------------*/
 void BinaryFileDao::close()
 {
-    if( tmbFile_.m_hFile != CFile::hFileNull) tmbFile_.Close();
+    if( binFile_.m_hFile != CFile::hFileNull) tmbFile_.Close();
 }
 
 /*!-----------------------------------------------------------------------------
@@ -97,7 +97,7 @@ void BinaryFileDao::close()
 ------------------------------------------------------------------------------*/
 ULONGLONG BinaryFileDao::getPosition()
 {
-    return tmbFile_.GetPosition();
+    return binFile_.GetPosition();
 }
 
 /*!-----------------------------------------------------------------------------
@@ -109,5 +109,5 @@ ULONGLONG BinaryFileDao::getPosition()
 ------------------------------------------------------------------------------*/
 ULONGLONG BinaryFileDao::getFileSize()
 {
-    return tmbFile_.GetLength();
+    return binFile_.GetLength();
 }
